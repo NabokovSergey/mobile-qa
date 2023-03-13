@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    const redirecturi = 'https://qa.domclick.ru/cas/esa/cb';
+    const scope = 'name%20openid';
+    const client_id = 'D5E2423F-264B-724C-A172-44729E539868';
+    const deeplink = 'sberbankidlogin://sberbankidsso';
+    const state = 'D5E2423F-264B-724C-A172-44729E539868';
+    const nonce = 'D5E2423F-264B-724C-A172-44729E539868';
+    const searchParams = new URL(window.location.href).searchParams;
+    const uri = new URL(searchParams.get('deeplink') || deeplink);
+
+    if(!searchParams.has('state')){
+        searchParams.append('state', state);
+    }
+    if(!searchParams.has('nonce')){
+        searchParams.append('nonce', nonce);
+    }
+    if(!searchParams.has('client_id')){
+        searchParams.append('client_id', client_id);
+    }
+    if(!searchParams.has('scope')){
+        searchParams.append('scope', scope);
+    }
+    if(!searchParams.has('redirecturi')){
+        searchParams.append('redirecturi', redirecturi);
+    }
+
+    window.location.href = decodeURIComponent(uri.toString() + '?' + searchParams.toString());
+</script>
+</body>
+</html>
