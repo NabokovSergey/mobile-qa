@@ -6,7 +6,7 @@
 </head>
 <body>
 <script>
-    const redirecturi = 'https://qa.domclick.ru/cas/esa/cb';
+    const redirect_uri = 'https://qa.domclick.ru/cas/esa/cb';
     const scope = 'name%20openid';
     const client_id = 'D5E2423F-264B-724C-A172-44729E539868';
     const deeplink = 'sberbankidlogin://sberbankidsso';
@@ -27,8 +27,8 @@
     if(!searchParams.has('scope')){
         searchParams.append('scope', scope);
     }
-    if(!searchParams.has('redirecturi')){
-        searchParams.append('redirecturi', redirecturi);
+    if(!searchParams.has('redirect_uri')){
+        searchParams.append('redirect_uri', redirecturi);
     }
 
     window.location.href = decodeURIComponent(uri.toString() + '?' + searchParams.toString());
