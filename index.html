@@ -28,7 +28,7 @@
         searchParams.append('scope', scope);
     }
     if(!searchParams.has('redirect_uri')){
-        searchParams.append('redirect_uri', redirecturi);
+        searchParams.append('redirect_uri', redirect_uri);
     }
 
     window.location.href = decodeURIComponent(uri.toString() + '?' + searchParams.toString());
