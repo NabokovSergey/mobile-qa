@@ -5,33 +5,30 @@
     <title>Mobile QA</title>
 </head>
 <body>
+
+        <div id="cookies"></div><br>
+    <div id="localStorage"></div><br>
+    <div id="sessionStorage"></div><br>
+    <div id="cache"></div><br>
+    <br>
+    <button id="button">Set values</button><br>
+    <button id="showButton">Show values</button>
 <script>
-    const redirect_uri = 'https://qa.domclick.ru/cas/esa/cb';
-    const scope = 'name%20openid';
-    const client_id = 'D5E2423F-264B-724C-A172-44729E539868';
-    const deeplink = 'sberbankidlogin://sberbankidsso';
-    const state = 'D5E2423F-264B-724C-A172-44729E539868';
-    const nonce = 'D5E2423F-264B-724C-A172-44729E539868';
-    const searchParams = new URL(window.location.href).searchParams;
-    const uri = new URL(searchParams.get('deeplink') || deeplink);
 
-    if(!searchParams.has('state')){
-        searchParams.append('state', state);
-    }
-    if(!searchParams.has('nonce')){
-        searchParams.append('nonce', nonce);
-    }
-    if(!searchParams.has('client_id')){
-        searchParams.append('client_id', client_id);
-    }
-    if(!searchParams.has('scope')){
-        searchParams.append('scope', scope);
-    }
-    if(!searchParams.has('redirect_uri')){
-        searchParams.append('redirect_uri', redirect_uri);
-    }
+showButton.onclick = () => {
+document.querySelector('#cookies').innerHTML = `cookies: ${Cookies.get('name')}`;
+document.querySelector('#localStorage').innerHTML = `localStorage: ${localStorage.getItem('name')}`;
+document.querySelector('#sessionStorage').innerHTML = `sessionStorage: ${sessionStorage.getItem('name')}`;
+document.querySelector('#cache').innerHTML = `cache: ${message}`;
+}
 
-    window.location.href = decodeURIComponent(uri.toString() + '?' + searchParams.toString());
+
+button.onclick = () => {
+  console.log('set value');
+  Cookies.set('name', 'value');
+  localStorage.setItem('name', 'value');
+  sessionStorage.setItem('name', 'value');
+}
 </script>
 </body>
 </html>
