@@ -6,8 +6,7 @@
      <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
 </head>
 <body>
-
-        <div id="cookies"></div><br>
+    <div id="cookies"></div><br>
     <div id="localStorage"></div><br>
     <div id="sessionStorage"></div><br>
     <div id="cache"></div><br>
@@ -16,19 +15,24 @@
     <button id="showButton">Show values</button>
 <script>
 
-showButton.onclick = () => {
-document.querySelector('#cookies').innerHTML = `cookies: ${Cookies.get('name')}`;
-document.querySelector('#localStorage').innerHTML = `localStorage: ${localStorage.getItem('name')}`;
-document.querySelector('#sessionStorage').innerHTML = `sessionStorage: ${sessionStorage.getItem('name')}`;
-document.querySelector('#cache').innerHTML = `cache: ${message}`;
+showButton.onclick = async() => {
+  document.querySelector('#cookies').innerHTML = `cookies: ${Cookies.get('name')}`;
+  document.querySelector('#localStorage').innerHTML = `localStorage: ${localStorage.getItem('name')}`;
+  document.querySelector('#sessionStorage').innerHTML = `sessionStorage: ${sessionStorage.getItem('name')}`;
+  const cache = await caches.open('cache');
+  const fromCache = await cache?.match('/user');
+  const cacheVal = await fromCache?.json() || {};
+  document.querySelector('#cache').innerHTML = `cache: ${cacheVal.value}`;
 }
 
 
-button.onclick = () => {
+button.onclick = async () => {
   console.log('set value');
   Cookies.set('name', 'value');
   localStorage.setItem('name', 'value');
   sessionStorage.setItem('name', 'value');
+  const cache = await caches.open('cache');
+  await cache.put('/user', new Response('{"value":"value from cache"}'));
 }
 </script>
 </body>
